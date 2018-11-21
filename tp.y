@@ -22,23 +22,34 @@
 
 /* reglas gramaticales */
 
-Programa: INICIO ListaSentencias FIN    
+Programa: INICIO ListaSentencias FIN      
+    ;
 
-ListaSentencias: Sentencia {Sentencia}
+ListaSentencias: Sentencia
+               | Sentencia Sentencia
+    ;
 
 Sentencia: ID ASIGNACION Expresion PUNTOYCOMA 
         | LEER PARENIZQUIERDO ListaIdentificadores PARENDERECHO PUNTOYCOMA
         | ESCRIBIR PARENIZQUIERDO ListaExpresiones PARENDERECHO PUNTOYCOMA
+    ;
 
-ListaIdentificadores: ID {COMA ID}
+ListaIdentificadores: ID
+                    | COMA ID
+    ;
 
-ListaExpresiones: Expresion {COMA Expresion}
+ListaExpresiones: Expresion
+                | COMA Expresion
+    ;
 
-Expresion: Primaria {OperadorAditivo Primaria}
+Expresion: Primaria
+         | OperadorAditivo Primaria
+    ;
 
 Primaria: ID
         | CONSTANTE
         | PARENIZQUIERDO Expresion PARENDERECHO
+    ;
 
 OperadorAditivo: SUMA
                | RESTA
