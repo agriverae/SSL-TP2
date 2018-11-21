@@ -25,8 +25,8 @@
 Programa: INICIO ListaSentencias FIN      
     ;
 
-ListaSentencias: Sentencia
-               | Sentencia Sentencia
+ListaSentencias:  Sentencia
+                | ListaSentencias Sentencia
     ;
 
 Sentencia: ID ASIGNACION Expresion PUNTOYCOMA 
@@ -35,25 +35,22 @@ Sentencia: ID ASIGNACION Expresion PUNTOYCOMA
     ;
 
 ListaIdentificadores: ID
-                    | COMA ID
+                    | ListaIdentificadores COMA ID
     ;
 
 ListaExpresiones: Expresion
-                | COMA Expresion
+                | ListaExpresiones COMA Expresion
     ;
 
 Expresion: Primaria
-         | OperadorAditivo Primaria
+         | Expresion SUMA Primaria
+         | Expresion RESTA Primaria
     ;
 
 Primaria: ID
         | CONSTANTE
         | PARENIZQUIERDO Expresion PARENDERECHO
     ;
-
-OperadorAditivo: SUMA
-               | RESTA
- 
 
 %%
 /* codigo C adicional */

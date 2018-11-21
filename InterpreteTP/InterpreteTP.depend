@@ -1,0 +1,11 @@
+# depslib dependency file v1.0
+1542827833 source:c:\users\ali.rivera\desktop\tp sintaxis\interpretetp\tp.tab.c
+	<stdio.h>
+	<stddef.h>
+	<libintl.h>
+	<alloca.h>
+	<malloc.h>
+	<stdlib.h>
+	<stdlib.h>
+	<stdio.h>
+

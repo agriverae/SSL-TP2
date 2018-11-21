@@ -1,3 +1,10 @@
+%{
+    #include "tp.tab.h"
+    #include <stdlib.h>
+    #include <stdio.h>
+%}
+%option noyywrap
+
 espacio                 [ \t]+
 digito                  [0-9]
 integer                 {digito}+

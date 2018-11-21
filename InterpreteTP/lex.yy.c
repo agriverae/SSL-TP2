@@ -322,6 +322,9 @@ void yyfree ( void *  );
 #define YY_AT_BOL() (YY_CURRENT_BUFFER_LVALUE->yy_at_bol)
 
 /* Begin user sect3 */
+
+#define yywrap() (/*CONSTCOND*/1)
+#define YY_SKIP_YYWRAP
 typedef flex_uint8_t YY_CHAR;
 
 FILE *yyin = NULL, *yyout = NULL;
@@ -362,13 +365,13 @@ struct yy_trans_info
 	};
 static const flex_int16_t yy_accept[71] =
     {   0,
-        0,    0,   16,   15,    1,    6,    7,    4,    8,    5,
-        2,   15,    9,    3,    3,    3,    3,    3,    1,    2,
-       13,    3,    3,    3,    3,    3,    3,    3,    3,    3,
-        3,    3,    3,    3,    3,    3,    3,    3,    3,    3,
-        3,    3,    3,    3,    3,    3,    3,    3,    3,    3,
-        3,    3,    3,    3,    3,    3,    3,    3,    3,    3,
-        3,    3,    3,    3,    3,    3,    3,    3,    3,    0
+        0,    0,   16,   15,    5,   10,   11,    8,   12,    9,
+        6,   15,   13,    7,    7,    7,    7,    7,    5,    6,
+       14,    7,    7,    7,    7,    7,    7,    7,    1,    7,
+        7,    7,    7,    7,    3,    7,    7,    7,    7,    7,
+        2,    7,    7,    7,    4,    7,    7,    7,    7,    7,
+        7,    7,    7,    7,    7,    7,    7,    7,    7,    7,
+        7,    7,    7,    7,    7,    7,    7,    7,    7,    0
     } ;
 
 static const YY_CHAR yy_ec[256] =
@@ -487,7 +490,12 @@ int yy_flex_debug = 0;
 #define YY_RESTORE_YY_MORE_OFFSET
 char *yytext;
 #line 1 "tp.l"
-#line 490 "lex.yy.c"
+#line 2 "tp.l"
+    #include "tp.tab.h"
+    #include <stdlib.h>
+    #include <stdio.h>
+#line 497 "lex.yy.c"
+#line 498 "lex.yy.c"
 
 #define INITIAL 0
 
@@ -704,10 +712,10 @@ YY_DECL
 		}
 
 	{
-#line 7 "tp.l"
+#line 14 "tp.l"
 
 
-#line 710 "lex.yy.c"
+#line 718 "lex.yy.c"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -766,86 +774,86 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 9 "tp.l"
-{ /* Ignoramos espacios en blanco */ }
+#line 16 "tp.l"
+return(FIN);
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 10 "tp.l"
+#line 17 "tp.l"
+return(INICIO);
+	YY_BREAK
+case 3:
+YY_RULE_SETUP
+#line 18 "tp.l"
+return(LEER);
+	YY_BREAK
+case 4:
+YY_RULE_SETUP
+#line 19 "tp.l"
+return(ESCRIBIR);
+	YY_BREAK
+case 5:
+YY_RULE_SETUP
+#line 20 "tp.l"
+{ /* Ignoramos espacios en blanco */ }
+	YY_BREAK
+case 6:
+YY_RULE_SETUP
+#line 21 "tp.l"
 {
                             yylval.ival=atof(yytext);
                             return (CONSTANTE);
                         }
 	YY_BREAK
-case 3:
+case 7:
 YY_RULE_SETUP
-#line 15 "tp.l"
+#line 25 "tp.l"
 {
                             yylval.string=yytext;
                             return (ID);
                         }
 	YY_BREAK
-case 4:
-YY_RULE_SETUP
-#line 19 "tp.l"
-return(SUMA);
-	YY_BREAK
-case 5:
-YY_RULE_SETUP
-#line 20 "tp.l"
-return(RESTA);
-	YY_BREAK
-case 6:
-YY_RULE_SETUP
-#line 21 "tp.l"
-return(PARENIZQUIERDO);
-	YY_BREAK
-case 7:
-YY_RULE_SETUP
-#line 22 "tp.l"
-return(PARENDERECHO);
-	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 23 "tp.l"
-return(COMA);
+#line 29 "tp.l"
+return(SUMA);
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 24 "tp.l"
-return(PUNTOYCOMA);
+#line 30 "tp.l"
+return(RESTA);
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 25 "tp.l"
-return(FIN);
+#line 31 "tp.l"
+return(PARENIZQUIERDO);
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 26 "tp.l"
-return(INICIO);
+#line 32 "tp.l"
+return(PARENDERECHO);
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 27 "tp.l"
-return(LEER);
+#line 33 "tp.l"
+return(COMA);
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 28 "tp.l"
-return(ASIGNACION);
+#line 34 "tp.l"
+return(PUNTOYCOMA);
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 29 "tp.l"
-return(ESCRIBIR);
+#line 35 "tp.l"
+return(ASIGNACION);
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 31 "tp.l"
+#line 37 "tp.l"
 ECHO;
 	YY_BREAK
-#line 848 "lex.yy.c"
+#line 856 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1850,5 +1858,5 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 31 "tp.l"
+#line 37 "tp.l"
 
