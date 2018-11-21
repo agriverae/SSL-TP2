@@ -17,13 +17,14 @@ identificador           [A-Za-z]{alfanum}{0,31}
 "inicio"                return(INICIO);
 "leer"                  return(LEER);
 "escribir"              return(ESCRIBIR);
+"exit"|"quit"|"bye"	    {printf("Terminando programa\n");exit(0);}
 {espacio}               { /* Ignoramos espacios en blanco */ }
 {integer}               {
                             yylval.ival=atof(yytext);
                             return (CONSTANTE);
                         }
 {identificador}         {
-                            yylval.string=yytext;
+                            yylval.string=strdup(yytext);
                             return (ID);
                         }
 "+"                     return(SUMA);
