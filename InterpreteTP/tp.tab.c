@@ -66,9 +66,22 @@
 #line 1 "tp.y"
 
     #include <stdio.h>
+	#include <string.h>
+	
+	/*** Funciones ***/
+		
+	void porCodigoManual();
+	void porArgumentos(int argc, char *argv[]);
+	
+	void agregarALista(char *nombre, int valor);
+	void modificarExistente(char *nombre, int valor);
+	void ingresoDeValor(char *nombre);
+	
+	int obtenerValor(char *id);
+	int obtenerIndice(char *nombre);	
 
 /* Line 371 of yacc.c  */
-#line 72 "tp.tab.c"
+#line 85 "tp.tab.c"
 
 # ifndef YY_NULL
 #  if defined __cplusplus && 201103L <= __cplusplus
@@ -125,14 +138,14 @@ extern int yydebug;
 typedef union YYSTYPE
 {
 /* Line 387 of yacc.c  */
-#line 5 "tp.y"
+#line 20 "tp.y"
 
     int ival;
     char* string;
 
 
 /* Line 387 of yacc.c  */
-#line 136 "tp.tab.c"
+#line 149 "tp.tab.c"
 } YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
@@ -160,7 +173,7 @@ int yyparse ();
 /* Copy the second part of user declarations.  */
 
 /* Line 390 of yacc.c  */
-#line 164 "tp.tab.c"
+#line 177 "tp.tab.c"
 
 #ifdef short
 # undef short
@@ -455,8 +468,8 @@ static const yytype_int8 yyrhs[] =
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    30,    30,    31,    34,    35,    38,    39,    40,    43,
-      44,    47,    48,    51,    52,    53,    56,    57,    58
+       0,    45,    45,    46,    49,    50,    53,    54,    55,    58,
+      59,    62,    63,    66,    67,    68,    71,    72,    73
 };
 #endif
 
@@ -1366,79 +1379,79 @@ yyreduce:
     {
         case 4:
 /* Line 1792 of yacc.c  */
-#line 34 "tp.y"
-    {printf("Se reconoce sentencia");}
+#line 49 "tp.y"
+    {}
     break;
 
   case 6:
 /* Line 1792 of yacc.c  */
-#line 38 "tp.y"
-    {printf("Se le asigna a %s = %d ", (yyvsp[(1) - (4)].string) ,(yyvsp[(3) - (4)].ival));}
+#line 53 "tp.y"
+    {printf("Se le asigna a %s = %d \n", (yyvsp[(1) - (4)].string) ,(yyvsp[(3) - (4)].ival));agregarALista((yyvsp[(1) - (4)].string),(yyvsp[(3) - (4)].ival));}
     break;
 
   case 9:
 /* Line 1792 of yacc.c  */
-#line 43 "tp.y"
-    {}
+#line 58 "tp.y"
+    {ingresoDeValor((yyvsp[(1) - (1)].string));}
     break;
 
   case 10:
 /* Line 1792 of yacc.c  */
-#line 44 "tp.y"
-    {}
+#line 59 "tp.y"
+    {ingresoDeValor((yyvsp[(3) - (3)].string));}
     break;
 
   case 11:
 /* Line 1792 of yacc.c  */
-#line 47 "tp.y"
-    {printf("Resultado: %d", (yyvsp[(1) - (1)].ival));}
+#line 62 "tp.y"
+    {printf("Resultado: %d \n", obtenerValor((yyvsp[(1) - (1)].ival)));}
     break;
 
   case 12:
 /* Line 1792 of yacc.c  */
-#line 48 "tp.y"
-    {printf(", Resultado: %d", (yyvsp[(3) - (3)].ival));}
+#line 63 "tp.y"
+    {printf("Resultado: %d \n", obtenerValor((yyvsp[(3) - (3)].ival)));}
     break;
 
   case 13:
 /* Line 1792 of yacc.c  */
-#line 51 "tp.y"
+#line 66 "tp.y"
     { (yyval.ival) = (yyvsp[(1) - (1)].ival); }
     break;
 
   case 14:
 /* Line 1792 of yacc.c  */
-#line 52 "tp.y"
+#line 67 "tp.y"
     { (yyval.ival) = (yyvsp[(1) - (3)].ival) + (yyvsp[(3) - (3)].ival); }
     break;
 
   case 15:
 /* Line 1792 of yacc.c  */
-#line 53 "tp.y"
+#line 68 "tp.y"
     { (yyval.ival) = (yyvsp[(1) - (3)].ival) - (yyvsp[(3) - (3)].ival); }
     break;
 
   case 16:
 /* Line 1792 of yacc.c  */
-#line 56 "tp.y"
-    { (yyval.ival) = (yyvsp[(1) - (1)].string); }
+#line 71 "tp.y"
+    { (yyval.ival) = obtenerValor((yyvsp[(1) - (1)].string)); /*printf("Obtiene valor de %s = %d", $1, obtenerValor($1));*/ }
     break;
 
   case 17:
 /* Line 1792 of yacc.c  */
-#line 57 "tp.y"
+#line 72 "tp.y"
     { (yyval.ival)=(yyvsp[(1) - (1)].ival); }
     break;
 
   case 18:
 /* Line 1792 of yacc.c  */
-#line 58 "tp.y"
+#line 73 "tp.y"
     { (yyval.ival)=(yyvsp[(2) - (3)].ival); }
     break;
 
 
 /* Line 1792 of yacc.c  */
-#line 1442 "tp.tab.c"
+#line 1455 "tp.tab.c"
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -1670,22 +1683,107 @@ yyreturn:
 
 
 /* Line 2055 of yacc.c  */
-#line 61 "tp.y"
+#line 76 "tp.y"
 
-/* codigo C adicional */
 
-struct ID {
+/******** Código C *********/
+
+
+/* Archivo */
+extern FILE *yyin;
+/* Inicializamos el tipo de dato Identificador */
+typedef struct Identificador {
    char  name[53];
    int   valor;
-};
+}Identificador;
 
+/* Creamos la lista donde guardamos todos los identificadores */
+Identificador listaIds[200];
+/* Contador para saber el siguiente espacio libre */
+int cantidadDeIDs = 0;
+
+/* Agregamos identificador a la lista */
+void agregarALista(char *nombre, int valor){	
+	if(obtenerIndice(nombre) != -1){ // Si ya existe modificamos
+		modificarExistente(nombre,valor);
+	}
+	else{ // Agregamos
+		listaIds[cantidadDeIDs].valor = valor;
+		strcpy(listaIds[cantidadDeIDs].name, nombre);	
+		cantidadDeIDs++;
+	}	
+}
+
+/* Modificar un identificador que ya existe */
+void modificarExistente(char *nombre, int valor){
+	int indiceEnLista = obtenerIndice(nombre);
+	
+	listaIds[indiceEnLista].valor = valor;
+}
+
+/* Obtiene la posición del identificador en la lista */
+int obtenerIndice(char *nombre){
+	for(int i = 0; i < 200; i++){
+		if(strcmp(listaIds[i].name, nombre) == 0){
+			return i;
+		}
+	}
+	return -1;
+}
+
+/* Se pide por pantalla el ingreso del valor del identificador */
+void ingresoDeValor(char *id){
+	int valor;
+	printf("Ingrese valor de identificador %s: ", id);
+	scanf("%d",&valor); 
+	agregarALista(id, valor);	
+}
+
+
+int obtenerValor(char *id){
+	int indice = obtenerIndice(id);
+	if(indice >= 0){
+		return  listaIds[indice].valor;
+	}
+	printf("El identificador nunca fue declarado");
+	return -1;
+	
+}
 
 
 int yyerror(char *s) {
-    printf("Error: no se reconoce la operacion.\n en %s", s);
+    printf("Error: no se reconoce la operacion por: %s \n", s);
 }
 
-int main(void) {
-	printf("Ingrese su codigo manualmente: \n");
+
+
+int main(int argc, char *argv[]) {
+	printf("Leyendo archivo: %s\n", argv[1]);
+	if((yyin=fopen(argv[1],"r"))){
+		yyparse();
+	} else {
+		printf("Error. No se pudo interpretar el archivo %s\n", argv[1]);
+	}
+	/*if(argc < 2){
+		porCodigoManual();
+	}
+	else{
+		porArgumentos(argc, *argv);
+	}*/
+}
+
+void porCodigoManual(){
+	printf("Ingrese el codigo a intepretar: \n");
     yyparse();
+}
+
+
+
+void porArgumentos(int argc, char *argv[]){
+	printf("Leyendo archivo: %s\n", argv[1]);
+	if((yyin=fopen(argv[1],"rb"))){
+		yyparse();
+	} else {
+		printf("Error. No se pudo interpretar el archivo %s\n", argv[1]);
+	}
 }
