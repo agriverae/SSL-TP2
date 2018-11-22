@@ -1,1 +1,1 @@
-inicio fin
+inicio a:=1; fin

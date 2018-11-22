@@ -1,1 +1,1 @@
-inicio a:=1; escribir(a); fin
+inicio a:=1; b:=2; escribir(a,b); fin

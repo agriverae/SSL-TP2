@@ -1,0 +1,14 @@
+# depslib dependency file v1.0
+1542851042 source:c:\ssl-tp2\interpretetp\lex.yy.c
+	<stdio.h>
+	<string.h>
+	<errno.h>
+	<stdlib.h>
+	<inttypes.h>
+	"tp.tab.h"
+	<stdlib.h>
+	<stdio.h>
+	<unistd.h>
+
+1542912474 c:\ssl-tp2\interpretetp\tp.tab.h
+

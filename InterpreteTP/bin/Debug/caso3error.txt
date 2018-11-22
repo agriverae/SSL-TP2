@@ -1,0 +1,1 @@
+inicio escribir(a,b,c);leer(a,b,c); fin

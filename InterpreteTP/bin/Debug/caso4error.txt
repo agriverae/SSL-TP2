@@ -1,0 +1,1 @@
+inicio leer(a,b,c);escribir(a+10b+10,c+10); fin

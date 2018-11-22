@@ -46,10 +46,10 @@ extern int yydebug;
    /* Put the tokens into the symbol table, so that GDB and other debuggers
       know about them.  */
    enum yytokentype {
-     CONSTANTE = 258,
-     PARENIZQUIERDO = 259,
-     PARENDERECHO = 260,
-     ID = 261,
+     ID = 258,
+     CONSTANTE = 259,
+     PARENIZQUIERDO = 260,
+     PARENDERECHO = 261,
      PUNTOYCOMA = 262,
      COMA = 263,
      ASIGNACION = 264,
@@ -67,7 +67,7 @@ extern int yydebug;
 typedef union YYSTYPE
 {
 /* Line 2058 of yacc.c  */
-#line 20 "tp.y"
+#line 21 "tp.y"
 
     int ival;
     char* string;

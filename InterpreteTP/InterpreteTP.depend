@@ -20,11 +20,12 @@
 	<stdio.h>
 	<unistd.h>
 
-1542907024 c:\ssl-tp2\interpretetp\tp.tab.h
+1542920157 c:\ssl-tp2\interpretetp\tp.tab.h
 
-1542905666 source:c:\ssl-tp2\interpretetp\tp.tab.c
-	<stdio.h>
+1542913392 source:c:\ssl-tp2\interpretetp\tp.tab.c
 	<string.h>
+	<stdlib.h>
+	<stdio.h>
 	<stddef.h>
 	<libintl.h>
 	<alloca.h>

@@ -1,16 +1,17 @@
-%{
-    #include <stdio.h>
+%{    
 	#include <string.h>
+	#include <stdlib.h>
+	#include <stdio.h>
 	
 	/*** Funciones ***/
 		
 	void porCodigoManual();
-	void porArgumentos(int argc, char *argv[]);
+	void porArgumentos(char nombreArch[]);
 	
 	void agregarALista(char *nombre, int valor);
-	void modificarExistente(char *nombre, int valor);
 	void ingresoDeValor(char *nombre);
-	
+	void modificarExistente(char *nombre, int valor);
+		
 	int obtenerValor(char *id);
 	int obtenerIndice(char *nombre);	
 %}
@@ -21,11 +22,12 @@
     int ival;
     char* string;
 }
+
 /******** Declaraciones de Bison ********/
 
+%token <string> ID
 %token  <ival> CONSTANTE
-/*%token  <string> */
-%token  PARENIZQUIERDO   PARENDERECHO  ID   PUNTOYCOMA  COMA 
+%token  PARENIZQUIERDO   PARENDERECHO  PUNTOYCOMA  COMA 
 %token  ASIGNACION   LEER    ESCRIBIR    SUMA    RESTA
 %token  INICIO   FIN
 
@@ -34,7 +36,6 @@
 %right   ASIGNACION 
 
 %type   <ival> Primaria Expresion
-%type   <string> Sentencia ID
 
 %start Programa
 
@@ -42,25 +43,25 @@
 
 /******** Reglas gramaticales ********/
 
-Programa: INICIO FIN 
-		| INICIO ListaSentencias FIN 
+Programa: INICIO ListaSentencias FIN 
     ;
 
-ListaSentencias:  Sentencia {}
+ListaSentencias:  Sentencia
                 | ListaSentencias Sentencia
     ;
 
-Sentencia: ID ASIGNACION Expresion PUNTOYCOMA                                   {printf("Se le asigna a %s = %d \n", $1 ,$3);agregarALista($1,$3);}
-        | LEER PARENIZQUIERDO ListaIdentificadores PARENDERECHO PUNTOYCOMA
-        | ESCRIBIR PARENIZQUIERDO ListaExpresiones PARENDERECHO PUNTOYCOMA
+Sentencia: ID ASIGNACION Expresion PUNTOYCOMA {printf("Se asigna: %s = %d \n", $1 ,$3);agregarALista($1,$3);}
+			| ESCRIBIR PARENIZQUIERDO ListaExpresiones PARENDERECHO PUNTOYCOMA
+			| LEER PARENIZQUIERDO ListaIdentificadores PARENDERECHO PUNTOYCOMA
+        
     ;
 
 ListaIdentificadores: ID                                {ingresoDeValor($1);}
                     | ListaIdentificadores COMA ID      {ingresoDeValor($3);}
     ;
 
-ListaExpresiones: Expresion                             {printf("Resultado: %d \n", obtenerValor($1));}
-                | ListaExpresiones COMA Expresion       {printf("Resultado: %d \n", obtenerValor($3));}
+ListaExpresiones: Expresion                             {printf("Resultado: %d \n", $1);}
+                | ListaExpresiones COMA Expresion       {printf("Resultado: %d \n", $3);}
     ;
 
 Expresion: Primaria                     { $$ = $1; }
@@ -68,7 +69,7 @@ Expresion: Primaria                     { $$ = $1; }
          | Expresion RESTA Primaria     { $$ = $1 - $3; }
     ;
 
-Primaria: ID                                        { $$ = obtenerValor($1); /*printf("Obtiene valor de %s = %d", $1, obtenerValor($1));*/ }
+Primaria: ID                                        { $$ = obtenerValor($1);}
         | CONSTANTE                                 { $$=$1; }
         | PARENIZQUIERDO Expresion PARENDERECHO     { $$=$2; }
     ;
@@ -80,33 +81,34 @@ Primaria: ID                                        { $$ = obtenerValor($1); /*p
 
 /* Archivo */
 extern FILE *yyin;
+
 /* Inicializamos el tipo de dato Identificador */
-typedef struct Identificador {
-   char  name[53];
+typedef struct{
    int   valor;
+   char  name[53];   
 }Identificador;
 
 /* Creamos la lista donde guardamos todos los identificadores */
 Identificador listaIds[200];
+
 /* Contador para saber el siguiente espacio libre */
 int cantidadDeIDs = 0;
 
-/* Agregamos identificador a la lista */
+/* Agrega identificador a la lista */
 void agregarALista(char *nombre, int valor){	
 	if(obtenerIndice(nombre) != -1){ // Si ya existe modificamos
 		modificarExistente(nombre,valor);
 	}
-	else{ // Agregamos
+	else{ //Si no agregamos
 		listaIds[cantidadDeIDs].valor = valor;
 		strcpy(listaIds[cantidadDeIDs].name, nombre);	
 		cantidadDeIDs++;
 	}	
 }
 
-/* Modificar un identificador que ya existe */
+/* Modifica un identificador que ya existe */
 void modificarExistente(char *nombre, int valor){
-	int indiceEnLista = obtenerIndice(nombre);
-	
+	int indiceEnLista = obtenerIndice(nombre);	
 	listaIds[indiceEnLista].valor = valor;
 }
 
@@ -129,50 +131,43 @@ void ingresoDeValor(char *id){
 }
 
 
+/* Obtiene el valor del identificador recibido */
 int obtenerValor(char *id){
 	int indice = obtenerIndice(id);
 	if(indice >= 0){
 		return  listaIds[indice].valor;
 	}
-	printf("El identificador nunca fue declarado");
-	return -1;
-	
+	yyerror("identificador no declarado. ");
+	return -1;	
 }
 
 
 int yyerror(char *s) {
     printf("Error: no se reconoce la operacion por: %s \n", s);
+	exit(-1);
 }
-
 
 
 int main(int argc, char *argv[]) {
-	printf("Leyendo archivo: %s\n", argv[1]);
-	if((yyin=fopen(argv[1],"r"))){
-		yyparse();
-	} else {
-		printf("Error. No se pudo interpretar el archivo %s\n", argv[1]);
-	}
-	/*if(argc < 2){
+	if(argc < 2){
 		porCodigoManual();
 	}
 	else{
-		porArgumentos(argc, *argv);
-	}*/
+		porArgumentos(argv[1]);
+	}
 }
+
 
 void porCodigoManual(){
 	printf("Ingrese el codigo a intepretar: \n");
     yyparse();
 }
 
-
-
-void porArgumentos(int argc, char *argv[]){
-	printf("Leyendo archivo: %s\n", argv[1]);
-	if((yyin=fopen(argv[1],"rb"))){
-		yyparse();
-	} else {
-		printf("Error. No se pudo interpretar el archivo %s\n", argv[1]);
-	}
+void porArgumentos(char nombreArch[100]){
+		printf("Interpretando el archivo: %s\n", nombreArch);
+		if((yyin=fopen(nombreArch,"rb"))){
+			yyparse();
+		} else {
+			printf("Error. No se encontró el archivo %s\n", nombreArch);
+		}
 }
