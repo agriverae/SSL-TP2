@@ -27,16 +27,15 @@
 
 /* reglas gramaticales */
 
-Programa: INICIO FIN {printf("Se reconoce inicio y fin");}
-		| INICIO ListaSentencias FIN
-		| Sentencia
+Programa: INICIO FIN 
+		| INICIO ListaSentencias FIN 
     ;
 
-ListaSentencias:  Sentencia
+ListaSentencias:  Sentencia {printf("Se reconoce sentencia");}
                 | ListaSentencias Sentencia
     ;
 
-Sentencia: ID ASIGNACION Expresion PUNTOYCOMA                                   {$$ = $1;}
+Sentencia: ID ASIGNACION Expresion PUNTOYCOMA                                   {printf("Se le asigna a %s = %d ", $1 ,$3);}
         | LEER PARENIZQUIERDO ListaIdentificadores PARENDERECHO PUNTOYCOMA
         | ESCRIBIR PARENIZQUIERDO ListaExpresiones PARENDERECHO PUNTOYCOMA
     ;
@@ -45,8 +44,8 @@ ListaIdentificadores: ID                                {}
                     | ListaIdentificadores COMA ID      {}
     ;
 
-ListaExpresiones: Expresion                             {printf("Resultado: %i", $1);}
-                | ListaExpresiones COMA Expresion       {printf(", Resultado: %i", $3);}
+ListaExpresiones: Expresion                             {printf("Resultado: %d", $1);}
+                | ListaExpresiones COMA Expresion       {printf(", Resultado: %d", $3);}
     ;
 
 Expresion: Primaria                     { $$ = $1; }
@@ -70,7 +69,7 @@ struct ID {
 
 
 int yyerror(char *s) {
-    printf("Error: no se reconoce la operacion.\n");
+    printf("Error: no se reconoce la operacion.\n en %s", s);
 }
 
 int main(void) {

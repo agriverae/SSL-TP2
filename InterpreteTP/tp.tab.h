@@ -47,18 +47,18 @@ extern int yydebug;
       know about them.  */
    enum yytokentype {
      CONSTANTE = 258,
-     ID = 259,
-     INICIO = 260,
-     FIN = 261,
-     PARENIZQUIERDO = 262,
-     PARENDERECHO = 263,
-     PUNTOYCOMA = 264,
-     COMA = 265,
-     ASIGNACION = 266,
-     LEER = 267,
-     ESCRIBIR = 268,
-     SUMA = 269,
-     RESTA = 270
+     PARENIZQUIERDO = 259,
+     PARENDERECHO = 260,
+     ID = 261,
+     PUNTOYCOMA = 262,
+     COMA = 263,
+     ASIGNACION = 264,
+     LEER = 265,
+     ESCRIBIR = 266,
+     SUMA = 267,
+     RESTA = 268,
+     INICIO = 269,
+     FIN = 270
    };
 #endif
 

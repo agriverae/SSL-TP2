@@ -9,3 +9,26 @@
 	<stdlib.h>
 	<stdio.h>
 
+1542851042 source:c:\ssl-tp2\interpretetp\lex.yy.c
+	<stdio.h>
+	<string.h>
+	<errno.h>
+	<stdlib.h>
+	<inttypes.h>
+	"tp.tab.h"
+	<stdlib.h>
+	<stdio.h>
+	<unistd.h>
+
+1542854506 c:\ssl-tp2\interpretetp\tp.tab.h
+
+1542852651 source:c:\ssl-tp2\interpretetp\tp.tab.c
+	<stdio.h>
+	<stddef.h>
+	<libintl.h>
+	<alloca.h>
+	<malloc.h>
+	<stdlib.h>
+	<stdlib.h>
+	<stdio.h>
+
